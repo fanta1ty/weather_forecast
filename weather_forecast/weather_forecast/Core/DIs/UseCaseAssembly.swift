@@ -22,5 +22,10 @@ extension UseCaseAssembly: Assembly {
     func assemble(container: Container) {
         Log.debug(message: "[UseCaseAssembly] was initialized")
         
+        // MARK: - Forecast Section
+        // MARK: GetForecastUC
+        container.register(GetForecastUC.self) { r, city in
+            GetForecastUC(appStateStore: r.resolve(Store.self)!, forecastAPI: r.resolve(ForecastAPI.self)!, city: city)
+        }
     }
 }

@@ -17,6 +17,7 @@ import TSwiftHelper
 
 // MARK: - Global Properties
 let mainAssemblerResolver = AppDelegate.assembler.resolver
+var APP_ID = ""
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -24,6 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        loadEnvironment()
         setupThirdPartyServices(launchOptions: launchOptions)
         launchStartPage()
         return true
@@ -32,6 +34,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 // MARK: - Private Functions
 extension AppDelegate {
+    final private func loadEnvironment() {
+        switch environment {
+        case .development:
+            APP_ID = "60c6fbeb4b93ac653c492ba806fc346d"
+            
+        case .production:
+            APP_ID = "60c6fbeb4b93ac653c492ba806fc346d"
+        }
+    }
+    
     // MARK: setupThirdPartyServices
     final private func setupThirdPartyServices(launchOptions: [UIApplication.LaunchOptionsKey: Any]?) {
         

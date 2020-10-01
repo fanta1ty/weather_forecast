@@ -11,11 +11,11 @@ import Foundation
 import ReSwift
 
 func appReducer(action: Action, state: AppState?) -> AppState {
-    let state = state ?? AppState()
+    var state = state ?? AppState()
     
     switch action {
     default:
-        break
+        state.forecastState = forecastReducer(action: action, state: state.forecastState)
     }
     
     return state

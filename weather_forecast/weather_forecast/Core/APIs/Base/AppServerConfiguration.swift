@@ -10,11 +10,12 @@
 import Foundation
 import TSwiftHelper
 
-public protocol GlobalServiceConfiguration: AppServerConfiguration {}
-public protocol SocketServiceConfiguration: AppServerConfiguration {}
-public protocol UserProfileServiceConfiguration: AppServerConfiguration {}
-public protocol GoogleMapConfiguration: AppServerConfiguration {}
-public protocol SymptomCheckerServiceConfiguration: AppServerConfiguration {
-    var appId: String { get }
-    var appKey: String { get }
+class AppRemoteAPI {
+    let serverConfig: AppServerConfiguration
+    
+    init(serverConfig: AppServerConfiguration) {
+        self.serverConfig = serverConfig
+    }
 }
+
+public protocol GlobalServiceConfiguration: AppServerConfiguration {}

@@ -24,14 +24,8 @@ final class AppAssembly {
         case .development:
             assemblies.append(APIAssembly(server: .development))
             
-        case .production:
-            assemblies.append(APIAssembly(server: .production))
-            
-        case .test:
-            assemblies.append(APIAssembly(server: .test))
-            
         default:
-            break
+            assemblies.append(APIAssembly(server: .production))
         }
         
         return assemblies

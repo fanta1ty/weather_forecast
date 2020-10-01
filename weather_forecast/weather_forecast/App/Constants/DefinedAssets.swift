@@ -11,5 +11,6 @@ import Foundation
 import UIKit
 
 enum DefinedAssets: String {
-    case none = ""
+    case homeTab = "Image-1"
+    case selectedHomeTab = "Image"
 }

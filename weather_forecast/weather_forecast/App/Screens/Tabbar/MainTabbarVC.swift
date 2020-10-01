@@ -21,7 +21,7 @@ final class MainTabbarVC: UITabBarController {
     let viewModel: MainTabbarVM
     
     init(viewModel: MainTabbarVM) {
-        self.appStateStore = mainAssemblerResolver.resolve(Store.self, name: CoreAssemblyType.Store.rawValue)!
+        self.appStateStore = mainAssemblerResolver.resolve(Store.self)!
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -56,7 +56,7 @@ extension MainTabbarVC {
         
         // Init All Children View Controllers
         let homeVC = mainAssemblerResolver.resolve(HomeVC.self)!
-        homeVC.tabBarItem = UITabBarItem(title: "Home".localized, image: nil, selectedImage: nil)
+        homeVC.tabBarItem = UITabBarItem(title: "Home".localized, image: DefinedAssets.homeTab.rawValue.uiImage, selectedImage: DefinedAssets.selectedHomeTab.rawValue.uiImage)
         let homeNav = UINavigationController(rootViewController: homeVC)
         homeNav.setNavigationBarHidden(true, animated: false)
         

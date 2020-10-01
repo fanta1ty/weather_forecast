@@ -26,7 +26,7 @@ final class SplashVC: BaseVC {
     init(viewModel: SplashVM) {
         self.viewModel = viewModel
         
-        self.appStateStore = mainAssemblerResolver.resolve(Store.self, name: CoreAssemblyType.Store.rawValue)!
+        self.appStateStore = mainAssemblerResolver.resolve(Store.self)!
         
         super.init(nibName: nil, bundle: nil)
     }

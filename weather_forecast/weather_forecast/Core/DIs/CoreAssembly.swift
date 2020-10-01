@@ -15,18 +15,11 @@ import RxSwift
 enum AppEnvironment: String {
     case development = "DEVELOPMENT"
     case production = "PRODUCTION"
-    case staging = "STAGING"
-    case test = "TEST"
 }
 
 enum ServerEnvironment: String {
     case development
     case production
-    case test
-}
-
-enum CoreAssemblyType: String {
-    case Store
 }
 
 final class CoreAssembly {
@@ -42,7 +35,7 @@ extension CoreAssembly: Assembly {
         Log.debug(message: "[CoreAssembly] was initialized")
         
         // MARK: Store
-        container.register(Store.self, name: CoreAssemblyType.Store.rawValue) { r in
+        container.register(Store.self) { r in
             Store(reducer: appReducer, state: nil)
         }.inObjectScope(.container)
     }

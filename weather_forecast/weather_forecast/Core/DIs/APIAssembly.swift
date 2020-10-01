@@ -26,17 +26,20 @@ extension APIAssembly: Assembly {
         
         // MARK: - Global Section
         // MARK: UserProfileServiceConfiguration
-        container.register(UserProfileServiceConfiguration.self) { r in
+        container.register(GlobalServiceConfiguration.self) { r in
             switch self.server {
             case .development:
-                return StandardUserProfileApiConfiguration.development
+                return StandardGlobalServiceConfiguration.development
                 
-            case .test:
-                return StandardUserProfileApiConfiguration.test
-                
-            case .production:
-                return StandardUserProfileApiConfiguration.production
+            default:
+                return StandardGlobalServiceConfiguration.production
             }
+        }
+        
+        // MARK: - Forecase Section
+        // MARK: ForecastAPI
+        container.register(ForecastAPI.self) { r in
+            ImplementForecastAPI(serverConfig: r.resolve(GlobalServiceConfiguration.self)!)
         }
     }
 }

@@ -67,4 +67,7 @@ enum AppStateType: String {
 
 struct AppState: StateType {
     var error: Error?
+    
+    // MARK: forecastState
+    var forecastState = ForecastState()
 }
