@@ -28,5 +28,5 @@ extension ForecastAPIError {
 }
 
 protocol ForecastAPI {
-    func getForecast(city: String) -> Promise<Forecast>
+    func getForecast(city: String, unit: ForecastUnit) -> Promise<Forecast>
 }

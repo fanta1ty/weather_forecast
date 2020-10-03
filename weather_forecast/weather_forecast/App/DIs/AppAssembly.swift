@@ -51,5 +51,10 @@ extension AppAssembly: Assembly {
         container.register(HomeVC.self) { r in
             HomeVC(viewModel: HomeVM())
         }
+        
+        // MARK: SettingsVC
+        container.register(SettingsVC.self) { r in
+            SettingsVC(viewModel: SettingsVM())
+        }
     }
 }

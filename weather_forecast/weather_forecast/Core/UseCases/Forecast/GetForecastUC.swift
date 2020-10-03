@@ -12,11 +12,15 @@ import ReSwift
 
 final class GetForecastUC: BaseUC {
     private let city: String!
+    private let unit: ForecastUnit!
     private let forecastAPI: ForecastAPI!
     
-    init(appStateStore: Store<AppState>, forecastAPI: ForecastAPI, city: String) {
+    private let cache = Cache<Forecast>()
+    
+    init(appStateStore: Store<AppState>, forecastAPI: ForecastAPI, city: String, unit: ForecastUnit) {
         self.forecastAPI = forecastAPI
         self.city = city
+        self.unit = unit
         super.init(appStateStore: appStateStore)
     }
     
@@ -30,9 +34,13 @@ final class GetForecastUC: BaseUC {
 extension GetForecastUC {
     // MARK: start
     final func start() {
-        _ = forecastAPI.getForecast(city: city)
-            .done(updateState(state: ))
-            .catch(handleError(error: ))
+        if let forecast = cache.value(forKey: city) {
+            appStateStore.dispatchOnMain(action: UpdateGetForecastAction(state: .result(forecast)))
+        } else {
+            _ = forecastAPI.getForecast(city: city, unit: unit)
+                .done(updateState(state: ))
+                .catch(handleError(error: ))
+        }
     }
     
     // MARK: stop
@@ -45,6 +53,7 @@ extension GetForecastUC {
 extension GetForecastUC {
     // MARK: updateState
     final private func updateState(state: Forecast) {
+        cache.insert(state, forKey: city)
         appStateStore.dispatchOnMain(action: UpdateGetForecastAction(state: .result(state)))
     }
 }

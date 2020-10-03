@@ -13,13 +13,14 @@ enum WeatherCondition: String, Codable, CodingKey {
 
 struct Weather {
     enum JSONKeys: String, CodingKey {
-        case id, main, desc = "description", icon
+        case id, main, desc = "description", icon, iconURL
     }
     
     let id: Double?
     let main: WeatherCondition?
     let desc: String?
     let icon: String?
+    var iconURL: String?
 }
 
 // MARK: - Encodable
@@ -31,6 +32,7 @@ extension Weather: Encodable {
         try container.encodeIfPresent(main, forKey: .main)
         try container.encodeIfPresent(desc, forKey: .desc)
         try container.encodeIfPresent(icon, forKey: .icon)
+        try container.encodeIfPresent(iconURL, forKey: .iconURL)
     }
 }
 
@@ -43,6 +45,10 @@ extension Weather: Decodable {
         main = try values.decodeIfPresent(WeatherCondition.self, forKey: .main)
         desc = try values.decodeIfPresent(String.self, forKey: .desc)
         icon = try values.decodeIfPresent(String.self, forKey: .icon)
+        
+        if let icon = icon {
+            iconURL = "https://openweathermap.org/img/wn/" + icon + "@2x.png"
+        }
     }
 }
 

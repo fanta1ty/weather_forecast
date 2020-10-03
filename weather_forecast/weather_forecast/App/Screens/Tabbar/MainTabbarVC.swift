@@ -60,10 +60,11 @@ extension MainTabbarVC {
         let homeNav = UINavigationController(rootViewController: homeVC)
         homeNav.setNavigationBarHidden(true, animated: false)
         
-//        let settingVC = mainAssemblerResolver.resolve(SettingVC.self)!
-//        settingVC.tabBarItem = UITabBarItem(title: "Setting".localized, image: UIImage(assetIdentifier: .settingIcon), selectedImage: UIImage(assetIdentifier: .selectedSettingIcon))
-//        let settingNav = UINavigationController(rootViewController: settingVC)
+        let settingsVC = mainAssemblerResolver.resolve(SettingsVC.self)!
+        settingsVC.tabBarItem = UITabBarItem(title: "Setting".localized, image: DefinedAssets.settingsTab.rawValue.uiImage, selectedImage: DefinedAssets.selectedSettingsTab.rawValue.uiImage)
+        let settingNav = UINavigationController(rootViewController: settingsVC)
+        settingNav.setNavigationBarHidden(true, animated: false)
         
-        viewControllers = [homeNav]
+        viewControllers = [homeNav, settingNav]
     }
 }

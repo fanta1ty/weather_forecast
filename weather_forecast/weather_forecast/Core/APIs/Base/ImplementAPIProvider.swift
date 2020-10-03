@@ -45,7 +45,6 @@ extension ImplementAPIProvider {
             self.dataRequest(target: target).responseDecodable { (response: DataResponse<T, AFError>) in
                 switch response.result {
                 case .failure(let error):
-                    Log.error(error)
                     r.reject(error)
                     
                 case .success(let data):
@@ -65,7 +64,6 @@ extension ImplementAPIProvider {
         let method = target.method
         let headers = target.headers ?? [:]
         let encoding = target.encoding
-        URLCache.shared.removeAllCachedResponses()
         
         return AF.request(url, method: method, parameters: params, encoding: encoding, headers: HTTPHeaders(headers), interceptor: nil, requestModifier: nil).validate().responseJSON { response in
             if let error = response.error {

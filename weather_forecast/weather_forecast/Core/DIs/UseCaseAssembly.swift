@@ -24,8 +24,8 @@ extension UseCaseAssembly: Assembly {
         
         // MARK: - Forecast Section
         // MARK: GetForecastUC
-        container.register(GetForecastUC.self) { r, city in
-            GetForecastUC(appStateStore: r.resolve(Store.self)!, forecastAPI: r.resolve(ForecastAPI.self)!, city: city)
+        container.register(GetForecastUC.self) { r, city, unit in
+            GetForecastUC(appStateStore: r.resolve(Store.self)!, forecastAPI: r.resolve(ForecastAPI.self)!, city: city, unit: unit)
         }
     }
 }

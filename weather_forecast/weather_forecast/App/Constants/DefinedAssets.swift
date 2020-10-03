@@ -13,4 +13,6 @@ import UIKit
 enum DefinedAssets: String {
     case homeTab = "Image-1"
     case selectedHomeTab = "Image"
+    case settingsTab = "Image-2"
+    case selectedSettingsTab = "Image-3"
 }

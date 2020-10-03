@@ -64,6 +64,10 @@ final class HomeVC: BaseVC {
         disposeBag = nil
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+    }
+    
     // MARK: setupUI
     override func setupUI() {
         view.backgroundColor = .white
@@ -77,6 +81,8 @@ final class HomeVC: BaseVC {
         }
         
         // MARK: topTitleLb
+        topTitleLb.font = UIFont.preferredFont(forTextStyle: .headline)
+        topTitleLb.adjustsFontForContentSizeCategory = true
         topView.addSubview(topTitleLb)
         
         topTitleLb.snp.makeConstraints { make in
@@ -87,6 +93,9 @@ final class HomeVC: BaseVC {
         
         // MARK: searchBar
         searchBar.delegate = self
+        searchBar.isAccessibilityElement = true
+        searchBar.accessibilityTraits = .searchField
+        searchBar.accessibilityLabel = "Search Weather Forecast"
         topView.addSubview(searchBar)
         
         searchBar.snp.makeConstraints { make in
@@ -109,10 +118,11 @@ final class HomeVC: BaseVC {
         searchTb.delegate = self
         searchTb.registerCells()
         searchTb.tag = TableViewType.search.rawValue
-        contentView.addSubview(searchTb)
+        view.addSubview(searchTb)
         
         searchTb.snp.makeConstraints { make in
-            make.top.left.right.equalToSuperview()
+            make.top.equalTo(topView.snp.bottom)
+            make.left.right.equalToSuperview()
             make.height.equalTo(0)
         }
     }
@@ -178,7 +188,7 @@ extension HomeVC: UITableViewDataSource {
                 return SearchCell(frame: .zero)
             }
             
-            cell.loadData(data: viewModel.searchs[indexPath.row])
+            cell.loadData(data: viewModel.searchs[indexPath.row], unit: viewModel.forecastUnit)
             return cell
             
         default:
@@ -220,9 +230,7 @@ extension HomeVC {
 
 // MARK: - UI Functions
 extension HomeVC {
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        searchBar.setShowsCancelButton(false, animated: true)
-    }
+    
 }
 
 // MARK: - UISearchBarDelegate

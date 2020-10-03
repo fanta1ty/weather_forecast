@@ -8,6 +8,25 @@
 
 import Foundation
 
+enum ForecastUnit: String {
+    case kelvin = "standard", celsius = "metric", fahrenheit = "imperial"
+}
+
+extension ForecastUnit {
+    var unitText: String {
+        switch self {
+        case .celsius:
+            return "℃"
+            
+        case .fahrenheit:
+            return "℉"
+            
+        default:
+            return "K"
+        }
+    }
+}
+
 struct Forecast: Codable {
     let city: City?
     let cod: String?
