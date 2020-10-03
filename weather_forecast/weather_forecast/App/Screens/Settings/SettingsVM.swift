@@ -11,7 +11,7 @@ import UIKit
 
 final class SettingsVM {
     // MARK: UC Properties
-    let data = [["name": "Cache Setting"]]
+    let data = [["name": "Cache Setting"], ["name": "Forecast Unit Setting"]]
     
     init() {
         

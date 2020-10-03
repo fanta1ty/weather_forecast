@@ -18,3 +18,12 @@ struct UpdateGetForecastAction: Action {
 struct ClearGetForecastAction: Action {
     
 }
+
+// MARK: - GetForecastByCoordinate
+struct UpdateGetForecastByCoordinateAction: Action {
+    let state: EntityState<Forecast>
+}
+
+struct ClearGetForecastByCoordinateAction: Action {
+    
+}

@@ -9,19 +9,28 @@
 
 import Foundation
 import UIKit
+import SwiftLocation
 
 final class HomeVM {
     // MARK: UC Properties
     let cache = Cache<Forecast>()
+    var currentForecast: Forecast?
+    var responsedForecast: Forecast?
+    var currentForecastItem: ForecastItem?
     
     let forecastUnits = ["Metric: ℃", "Imperial: ℉"]
     
     let getForecastUC: ((String, ForecastUnit) -> GetForecastUC)!
+    let getForecastByCoordinateUC: ((Double, Double, ForecastUnit) -> GetForecastByCoordinateUC)
     var searchs: [ForecastItem] = [ForecastItem]()
     
     init() {
         self.getForecastUC = { city, unit in
             mainAssemblerResolver.resolve(GetForecastUC.self, arguments: city, unit)!
+        }
+        
+        self.getForecastByCoordinateUC = { lat, lon, unit in
+            mainAssemblerResolver.resolve(GetForecastByCoordinateUC.self, arguments: lat, lon, unit)!
         }
     }
 }
@@ -76,6 +85,34 @@ extension HomeVM {
                 debouncedGetForecast()
             }
         }
+    }
+    
+    // MARK: getForecastByCoordinate
+    final func getForecastByCoordinate() {
+        guard let forecastUnit = globalSettings?.forecastUnit else {
+            return
+        }
+        
+        let request = LocationManager.shared.locateFromGPS(.oneShot, accuracy: .city) { [weak self] result in
+            guard let self = self else {
+                return
+            }
+            
+            switch result {
+            case .failure(let error):
+                Log.error(error)
+                /// Default is Ho Chi Minh
+                self.getForecastByCoordinateUC(10.8333, 106.6667, forecastUnit).start()
+                
+            case .success(let location):
+                let lat = Double(location.coordinate.latitude)
+                let lon = Double(location.coordinate.longitude)
+                
+                self.getForecastByCoordinateUC(lat, lon, forecastUnit).start()
+            }
+        }
+        
+        request.start()
     }
 }
 

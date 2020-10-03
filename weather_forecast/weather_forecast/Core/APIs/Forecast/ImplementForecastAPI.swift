@@ -14,6 +14,7 @@ import TSwiftHelper
 // MARK: - SupportToolAPITarget Section
 enum ForecastAPITarget {
     case getForecast(city: String, unit: ForecastUnit)
+    case getForecastByCoordinate(lat: Double, lon: Double, unit: ForecastUnit)
 }
 
 extension ForecastAPITarget: TargetType {
@@ -35,6 +36,9 @@ extension ForecastAPITarget: TargetType {
         switch self {
         case .getForecast(let city, let unit):
             return ["q": city, "cnt": 7, "appid": APP_ID, "units": unit.rawValue]
+            
+        case .getForecastByCoordinate(let lat, let lon, let unit):
+            return ["lat": lat, "lon": lon, "appid": APP_ID, "units": unit.rawValue]
         }
     }
     
@@ -52,7 +56,7 @@ extension ForecastAPITarget: TargetType {
     
     var encoding: ParameterEncoding {
         switch self {
-        case .getForecast(_, _):
+        default:
             return URLEncoding.queryString
         }
     }
@@ -73,5 +77,10 @@ extension ImplementForecastAPI: ForecastAPI {
     // MARK: getForecast
     func getForecast(city: String, unit: ForecastUnit) -> Promise<Forecast> {
         return provider.request(target: .getForecast(city: city, unit: unit))
+    }
+    
+    // MARK: getForecastByCoordinate
+    func getForecastByCoordinate(lat: Double, lon: Double, unit: ForecastUnit) -> Promise<Forecast> {
+        return provider.request(target: .getForecastByCoordinate(lat: lat, lon: lon, unit: unit))
     }
 }

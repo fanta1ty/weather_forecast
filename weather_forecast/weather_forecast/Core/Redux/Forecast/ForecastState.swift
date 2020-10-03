@@ -12,13 +12,16 @@ import RxCocoa
 
 enum ForecastStateType: String {
     case GetForecast
+    case GetForecastByCoordinate
 }
 
 struct ForecastState {
     // MARK: getForecastState
     let getForecastState = BehaviorRelay<EntityState<Forecast>>(value: .result(nil))
+    let getForecastByCoordinateState = PublishRelay<EntityState<Forecast>>()
 }
 
 // MARK: - Typealias
 typealias GetForecastObservable = Observable<EntityState<Forecast>>
+typealias GetForecastByCoordinateObservable = Observable<EntityState<Forecast>>
 

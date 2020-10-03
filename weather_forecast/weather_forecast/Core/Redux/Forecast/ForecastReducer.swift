@@ -20,6 +20,13 @@ func forecastReducer(action: Action, state: ForecastState?) -> ForecastState {
     case _ as ClearGetForecastAction:
         state.getForecastState.accept(.result(nil))
         
+    // MARK: - GetServiceOption
+    case let action as UpdateGetForecastByCoordinateAction:
+        state.getForecastByCoordinateState.accept(action.state)
+        
+    case _ as ClearGetForecastByCoordinateAction:
+        state.getForecastByCoordinateState.accept(.result(nil))
+        
     default:
         break
     }

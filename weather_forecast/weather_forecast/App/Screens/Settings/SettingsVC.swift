@@ -157,6 +157,11 @@ extension SettingsVC: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.row {
+        case 1:
+            let controller = mainAssemblerResolver.resolve(ForecastUnitVC.self)!
+            controller.hidesBottomBarWhenPushed = true
+            navigationController?.pushViewController(controller, animated: true)
+            
         default:
             let controller = mainAssemblerResolver.resolve(CacheVC.self)!
             controller.hidesBottomBarWhenPushed = true

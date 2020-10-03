@@ -27,5 +27,10 @@ extension UseCaseAssembly: Assembly {
         container.register(GetForecastUC.self) { r, city, unit in
             GetForecastUC(appStateStore: r.resolve(Store.self)!, forecastAPI: r.resolve(ForecastAPI.self)!, city: city, unit: unit)
         }
+        
+        // MARK: GetForecastByCoordinateUC
+        container.register(GetForecastByCoordinateUC.self) { r, lat, lon, unit in
+            GetForecastByCoordinateUC(appStateStore: r.resolve(Store.self)!, forecastAPI: r.resolve(ForecastAPI.self)!, lat: lat, lon: lon, unit: unit)
+        }
     }
 }

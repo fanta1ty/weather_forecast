@@ -28,5 +28,6 @@ extension ForecastAPIError {
 }
 
 protocol ForecastAPI {
+    func getForecastByCoordinate(lat: Double, lon: Double, unit: ForecastUnit) -> Promise<Forecast>
     func getForecast(city: String, unit: ForecastUnit) -> Promise<Forecast>
 }

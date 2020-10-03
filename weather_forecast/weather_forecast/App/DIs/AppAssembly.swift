@@ -61,5 +61,10 @@ extension AppAssembly: Assembly {
         container.register(CacheVC.self) { r in
             CacheVC(viewModel: CacheVM())
         }
+        
+        // MARK: ForecastUnitVC
+        container.register(ForecastUnitVC.self) { r in
+            ForecastUnitVC(viewModel: ForecastUnitVM())
+        }
     }
 }

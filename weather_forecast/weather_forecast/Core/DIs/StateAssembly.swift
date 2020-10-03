@@ -27,5 +27,11 @@ extension StateAssembly: Assembly {
             let appStateStore: Store<AppState> = r.resolve(Store.self)!
             return appStateStore.state.forecastState.getForecastState.asObservable()
         }
+        
+        // MARK: GetForecastByCoordinateObservable
+        container.register(GetForecastByCoordinateObservable.self, name: ForecastStateType.GetForecastByCoordinate.rawValue) { r in
+            let appStateStore: Store<AppState> = r.resolve(Store.self)!
+            return appStateStore.state.forecastState.getForecastByCoordinateState.asObservable()
+        }
     }
 }
