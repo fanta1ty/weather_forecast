@@ -18,6 +18,7 @@ import TSwiftHelper
 // MARK: - Global Properties
 let mainAssemblerResolver = AppDelegate.assembler.resolver
 var APP_ID = ""
+var globalSettings: Settings?
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {

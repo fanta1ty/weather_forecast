@@ -47,14 +47,19 @@ extension AppAssembly: Assembly {
             MainTabbarVC(viewModel: MainTabbarVM())
         }
         
-        // MARK: HomeVC
+        // MARK: - HomeVC
         container.register(HomeVC.self) { r in
             HomeVC(viewModel: HomeVM())
         }
         
-        // MARK: SettingsVC
+        // MARK: - SettingsVC
         container.register(SettingsVC.self) { r in
             SettingsVC(viewModel: SettingsVM())
+        }
+        
+        // MARK: CacheVC
+        container.register(CacheVC.self) { r in
+            CacheVC(viewModel: CacheVM())
         }
     }
 }

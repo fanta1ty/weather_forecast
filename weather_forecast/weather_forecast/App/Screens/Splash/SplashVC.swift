@@ -37,6 +37,7 @@ final class SplashVC: BaseVC {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        viewModel.loadLocalSetting()
         goToNextScreen()
     }
     

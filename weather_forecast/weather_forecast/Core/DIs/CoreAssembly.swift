@@ -38,5 +38,10 @@ extension CoreAssembly: Assembly {
         container.register(Store.self) { r in
             Store(reducer: appReducer, state: nil)
         }.inObjectScope(.container)
+        
+        // MARK: LocalSettingsDataStore
+        container.register(LocalSettingsDataStore.self) { r in
+            ImplementLocalSettingsDataStore()
+        }.inObjectScope(.container)
     }
 }

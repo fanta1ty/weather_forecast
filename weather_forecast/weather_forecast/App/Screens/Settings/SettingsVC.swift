@@ -20,6 +20,8 @@ final class SettingsVC: BaseVC {
     
     private let topTitleLb = LabelHelper(style: LabelStyle(textColor: .Black, textFont: .InterBold(size: 18), textAlignment: .center), text: "Settings")
     
+    private let settingsTb = TableViewHelper(style: TableViewStyle(), cellClasses: [SettingsCell.self], cellIdentifiers: [SettingsCell.reuseIdentifier])
+    
     // MARK: - Local Properties
     private let appStateStore: Store<AppState>
     let viewModel: SettingsVM
@@ -88,11 +90,78 @@ final class SettingsVC: BaseVC {
             make.bottom.equalToSuperview()
             make.top.equalTo(topTitleLb.snp.bottom).offset(16)
         }
+        
+        // MARK: settingsTb
+        settingsTb.dataSource = self
+        settingsTb.delegate = self
+        view.addSubview(settingsTb)
+        settingsTb.registerCells()
+        
+        settingsTb.snp.makeConstraints { make in
+            make.top.equalTo(topView.snp.bottom)
+            make.left.right.bottom.equalToSuperview()
+        }
     }
     
     // MARK: setupRx
     override func setupRx() {
         disposeBag = DisposeBag()
+    }
+}
+
+// MARK: - UITableViewDataSource
+extension SettingsVC: UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return viewModel.data.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: SettingsCell.reuseIdentifier, for: indexPath) as? SettingsCell else {
+            return SettingsCell(frame: .zero)
+        }
+        
+        cell.loadData(data: viewModel.data[indexPath.row])
+        return cell
+    }
+}
+
+// MARK: - UITableViewDelegate
+extension SettingsVC: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        return ViewHelper(style: ViewStyle())
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 0
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return ViewHelper(style: ViewStyle())
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 0
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch indexPath.row {
+        default:
+            let controller = mainAssemblerResolver.resolve(CacheVC.self)!
+            controller.hidesBottomBarWhenPushed = true
+            navigationController?.pushViewController(controller, animated: true)
+        }
     }
 }
 

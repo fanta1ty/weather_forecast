@@ -15,4 +15,5 @@ enum DefinedAssets: String {
     case selectedHomeTab = "Image"
     case settingsTab = "Image-2"
     case selectedSettingsTab = "Image-3"
+    case backIcon = "Image-4"
 }
