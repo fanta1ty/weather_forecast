@@ -26,7 +26,7 @@ extension SplashVM {
             if let localSettings = localSettings {
                 globalSettings = localSettings
             } else {
-                let defaultSettings = Settings(cacheLifeTime: 1)
+                let defaultSettings = Settings(cacheLifeTime: 1, forecastUnit: .celsius)
                 globalSettings = defaultSettings
                 _ = self.localSettingsDataStore.set(defaultSettings)
             }

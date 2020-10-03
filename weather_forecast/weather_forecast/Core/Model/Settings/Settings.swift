@@ -10,6 +10,7 @@ import Foundation
 
 struct Settings: Codable {
     var cacheLifeTime: Int?
+    var forecastUnit: ForecastUnit?
 }
 
 // MARK: - Equatable

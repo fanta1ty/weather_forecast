@@ -188,7 +188,7 @@ extension HomeVC: UITableViewDataSource {
                 return SearchCell(frame: .zero)
             }
             
-            cell.loadData(data: viewModel.searchs[indexPath.row], unit: viewModel.forecastUnit)
+            cell.loadData(data: viewModel.searchs[indexPath.row])
             return cell
             
         default:
@@ -216,11 +216,30 @@ extension HomeVC: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return ViewHelper(style: ViewStyle())
+        let headerTb = ViewHelper(style: ViewStyle())
+        
+        let forecastSegment = UISegmentedControl(items: viewModel.forecastUnits)
+        forecastSegment.addTarget(self, action: #selector(onForecastSegmentValueChanged(_:)), for: .valueChanged)
+        headerTb.addSubview(forecastSegment)
+        
+        forecastSegment.snp.makeConstraints { make in
+            make.left.equalToSuperview().offset(16)
+            make.right.equalToSuperview().offset(-16)
+            make.centerY.equalToSuperview()
+        }
+        
+        switch globalSettings?.forecastUnit {
+        case .celsius:
+            forecastSegment.selectedSegmentIndex = 0
+        default:
+            forecastSegment.selectedSegmentIndex = 1
+        }
+        
+        return headerTb
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 0
+        return 50
     }
 }
 
@@ -228,9 +247,23 @@ extension HomeVC: UITableViewDelegate {
 extension HomeVC {
 }
 
-// MARK: - UI Functions
+// MARK: - Action Functions
 extension HomeVC {
-    
+    // MARK: onForecastSegmentValueChanged
+    @objc final private func onForecastSegmentValueChanged(_ sender: UISegmentedControl) {
+        switch sender.selectedSegmentIndex {
+        case 1:
+            globalSettings?.forecastUnit = .fahrenheit
+            
+        default:
+            globalSettings?.forecastUnit = .celsius
+        }
+        
+        if let searchText = searchBar.text, searchText.isEmpty == false {
+            viewModel.cache.removeValue()
+            viewModel.getForecast(city: searchText)
+        }
+    }
 }
 
 // MARK: - UISearchBarDelegate

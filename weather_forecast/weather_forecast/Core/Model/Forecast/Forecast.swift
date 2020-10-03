@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum ForecastUnit: String {
+enum ForecastUnit: String, Codable, CodingKey {
     case kelvin = "standard", celsius = "metric", fahrenheit = "imperial"
 }
 

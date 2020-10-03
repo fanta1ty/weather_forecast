@@ -37,7 +37,7 @@ final class SearchCell: UITableViewCell {
 // MARK: - Public Functions
 extension SearchCell {
     // MARK: loadData
-    final func loadData(data: ForecastItem?, unit: ForecastUnit) {
+    final func loadData(data: ForecastItem?) {
         guard let data = data else {
             return
         }
@@ -51,7 +51,7 @@ extension SearchCell {
         
         var avgTempStr = "Average Temperature: ".localized
         
-        if let dayTemperature = data.temp?.day {
+        if let dayTemperature = data.temp?.day, let unit = globalSettings?.forecastUnit {
             avgTempStr += dayTemperature.clean + unit.unitText
         }
         

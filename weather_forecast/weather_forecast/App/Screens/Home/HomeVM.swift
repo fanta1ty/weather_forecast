@@ -12,9 +12,12 @@ import UIKit
 
 final class HomeVM {
     // MARK: UC Properties
+    let cache = Cache<Forecast>()
+    
+    let forecastUnits = ["Metric: ℃", "Imperial: ℉"]
+    
     let getForecastUC: ((String, ForecastUnit) -> GetForecastUC)!
     var searchs: [ForecastItem] = [ForecastItem]()
-    var forecastUnit: ForecastUnit = .celsius
     
     init() {
         self.getForecastUC = { city, unit in
@@ -56,13 +59,17 @@ extension HomeVM {
 extension HomeVM {
     // MARK: getForecast
     @objc final func getForecast(city: String) {
+        guard let forecastUnit = globalSettings?.forecastUnit else {
+            return
+        }
+        
         if city.count > 2 {
             let debouncedGetForecast = debounce(interval: 0, queue: .main) { [weak self] in
                 guard let self = self else {
                     return
                 }
                 
-                self.getForecastUC(city.lowercased().trimmingCharacters(in: .whitespaces), self.forecastUnit).start()
+                self.getForecastUC(city.lowercased().trimmingCharacters(in: .whitespaces), forecastUnit).start()
             }
             
             DispatchQueue.global(qos: .background).async {
