@@ -140,11 +140,26 @@ extension SettingsVC: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        return ViewHelper(style: ViewStyle())
+        let footerTb = ViewHelper(style: ViewStyle(backgroundColor: .White))
+        
+        let currentVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as! String
+        let currentBuild = Bundle.main.infoDictionary?["CFBundleVersion"] as! String
+        
+        let infoLb = LabelHelper(style: LabelStyle(textAlignment: .center), parent: footerTb)
+        
+        infoLb.snp.makeConstraints { make in
+            make.left.equalToSuperview().offset(16)
+            make.right.equalToSuperview().offset(-16)
+            make.top.equalToSuperview().offset(16)
+            make.right.equalToSuperview().offset(-16)
+        }
+        
+        infoLb.text = "Weather Forecast - Ver: \(currentVersion) - Build: \(currentBuild)"
+        return footerTb
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 0
+        return 40
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

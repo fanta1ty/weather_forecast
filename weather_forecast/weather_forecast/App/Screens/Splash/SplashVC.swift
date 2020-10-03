@@ -17,6 +17,7 @@ import SnapKit
 
 final class SplashVC: BaseVC {
     // MARK: - UI Properties
+    private let titleLb = LabelHelper(style: LabelStyle(textFont: .regular(size: 40), textAlignment: .center), text: "Weather Forecast")
     
     // MARK: - Local Properties
     private let appStateStore: Store<AppState>
@@ -43,6 +44,15 @@ final class SplashVC: BaseVC {
     
     override func setupUI() {
         view.backgroundColor = .white
+        
+        // MARK: titleLb
+        view.addSubview(titleLb)
+        
+        titleLb.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+            make.left.equalToSuperview().offset(16)
+            make.right.equalToSuperview().offset(-16)
+        }
     }
 }
 

@@ -19,6 +19,7 @@ final class HomeVM {
     var currentForecastItem: ForecastItem?
     
     let forecastUnits = ["Metric: ℃", "Imperial: ℉"]
+    var allowRefreshData: Bool = false
     
     let getForecastUC: ((String, ForecastUnit) -> GetForecastUC)!
     let getForecastByCoordinateUC: ((Double, Double, ForecastUnit) -> GetForecastByCoordinateUC)

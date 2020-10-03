@@ -77,14 +77,12 @@ final class HomeVC: BaseVC {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        viewModel.getForecastByCoordinate()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        loadData()
+        viewModel.getForecastByCoordinate()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -383,6 +381,11 @@ final class HomeVC: BaseVC {
                 
                 self.viewModel.responsedForecast = data
                 
+                if self.viewModel.allowRefreshData {
+                    self.viewModel.currentForecast = data
+                    self.viewModel.allowRefreshData = false
+                }
+                
                 if let list = data.list {
                     self.viewModel.searchs = list
                     self.searchTb.reloadData()
@@ -460,7 +463,7 @@ extension HomeVC: UITableViewDelegate {
         forecastSegment.snp.makeConstraints { make in
             make.left.equalToSuperview().offset(16)
             make.right.equalToSuperview().offset(-16)
-            make.centerY.equalToSuperview()
+            make.top.bottom.equalToSuperview()
         }
         
         switch globalSettings?.forecastUnit {
@@ -474,7 +477,7 @@ extension HomeVC: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 50
+        return 40
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

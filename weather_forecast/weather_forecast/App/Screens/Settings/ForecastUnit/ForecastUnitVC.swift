@@ -124,6 +124,7 @@ final class ForecastUnitVC: BaseVC {
             make.left.equalToSuperview().offset(16)
             make.right.equalToSuperview().offset(-16)
             make.top.equalTo(topView.snp.bottom).offset(16)
+            make.height.equalTo(50)
         }
     }
     
