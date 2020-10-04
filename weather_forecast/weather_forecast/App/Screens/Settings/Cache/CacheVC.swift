@@ -120,6 +120,8 @@ final class CacheVC: BaseVC {
         }
         
         // MARK: lifeTimeTitleLb
+        lifeTimeTitleLb.font = UIFont.preferredFont(forTextStyle: .body)
+        lifeTimeTitleLb.adjustsFontForContentSizeCategory = true
         view.addSubview(lifeTimeTitleLb)
         
         lifeTimeTitleLb.snp.makeConstraints { make in

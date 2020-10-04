@@ -162,6 +162,8 @@ final class HomeVC: BaseVC {
         }
         
         // MARK: dateLb
+        dateLb.font = UIFont.preferredFont(forTextStyle: .body)
+        dateLb.adjustsFontForContentSizeCategory = true
         dateView.addSubview(dateLb)
         
         dateLb.snp.makeConstraints { make in
@@ -171,6 +173,8 @@ final class HomeVC: BaseVC {
         }
         
         // MARK: cityNameLb
+        cityNameLb.font = UIFont.preferredFont(forTextStyle: .headline)
+        cityNameLb.adjustsFontForContentSizeCategory = true
         contentView.addSubview(cityNameLb)
         
         cityNameLb.snp.makeConstraints { make in
@@ -190,6 +194,8 @@ final class HomeVC: BaseVC {
         }
         
         // MARK: weatherDescLb
+        weatherDescLb.font = UIFont.preferredFont(forTextStyle: .body)
+        weatherDescLb.adjustsFontForContentSizeCategory = true
         contentView.addSubview(weatherDescLb)
         
         weatherDescLb.snp.makeConstraints { make in
@@ -199,6 +205,8 @@ final class HomeVC: BaseVC {
         }
         
         // MARK: temperatureLb
+        temperatureLb.font = UIFont.preferredFont(forTextStyle: .body)
+        temperatureLb.adjustsFontForContentSizeCategory = true
         contentView.addSubview(temperatureLb)
         
         temperatureLb.snp.makeConstraints { make in
@@ -227,6 +235,8 @@ final class HomeVC: BaseVC {
         }
         
         // MARK: morningTempTitleLb
+        morningTempTitleLb.font = UIFont.preferredFont(forTextStyle: .body)
+        morningTempTitleLb.adjustsFontForContentSizeCategory = true
         morningTempView.addSubview(morningTempTitleLb)
         
         morningTempTitleLb.snp.makeConstraints { make in
@@ -235,6 +245,8 @@ final class HomeVC: BaseVC {
         }
         
         // MARK: morningTempLb
+        morningTempLb.font = UIFont.preferredFont(forTextStyle: .body)
+        morningTempLb.adjustsFontForContentSizeCategory = true
         morningTempView.addSubview(morningTempLb)
         
         morningTempLb.snp.makeConstraints { make in
@@ -253,6 +265,8 @@ final class HomeVC: BaseVC {
         }
         
         // MARK: afternoonTempTitleLb
+        afternoonTempTitleLb.font = UIFont.preferredFont(forTextStyle: .body)
+        afternoonTempTitleLb.adjustsFontForContentSizeCategory = true
         afternoonTempView.addSubview(afternoonTempTitleLb)
         
         afternoonTempTitleLb.snp.makeConstraints { make in
@@ -261,6 +275,8 @@ final class HomeVC: BaseVC {
         }
         
         // MARK: afternoonTempLb
+        afternoonTempLb.font = UIFont.preferredFont(forTextStyle: .body)
+        afternoonTempLb.adjustsFontForContentSizeCategory = true
         afternoonTempView.addSubview(afternoonTempLb)
         
         afternoonTempLb.snp.makeConstraints { make in
@@ -279,6 +295,8 @@ final class HomeVC: BaseVC {
         }
         
         // MARK: eveningTempTitleLb
+        eveningTempTitleLb.font = UIFont.preferredFont(forTextStyle: .body)
+        eveningTempTitleLb.adjustsFontForContentSizeCategory = true
         eveningTempView.addSubview(eveningTempTitleLb)
         
         eveningTempTitleLb.snp.makeConstraints { make in
@@ -287,6 +305,8 @@ final class HomeVC: BaseVC {
         }
         
         // MARK: eveningTempLb
+        eveningTempLb.font = UIFont.preferredFont(forTextStyle: .body)
+        eveningTempLb.adjustsFontForContentSizeCategory = true
         eveningTempView.addSubview(eveningTempLb)
         
         eveningTempLb.snp.makeConstraints { make in
@@ -304,6 +324,8 @@ final class HomeVC: BaseVC {
         }
         
         // MARK: nightTempTitleLb
+        nightTempTitleLb.font = UIFont.preferredFont(forTextStyle: .body)
+        nightTempTitleLb.adjustsFontForContentSizeCategory = true
         nightTempView.addSubview(nightTempTitleLb)
         
         nightTempTitleLb.snp.makeConstraints { make in
@@ -312,6 +334,8 @@ final class HomeVC: BaseVC {
         }
         
         // MARK: nightTempLb
+        nightTempLb.font = UIFont.preferredFont(forTextStyle: .body)
+        nightTempLb.adjustsFontForContentSizeCategory = true
         nightTempView.addSubview(nightTempLb)
         
         nightTempLb.snp.makeConstraints { make in
@@ -347,12 +371,14 @@ final class HomeVC: BaseVC {
             switch state {
             case .fail(_):
                 SVProgressHUD.dismiss()
+                self.appStateStore.dispatchOnMain(action: ClearGetForecastByCoordinateAction())
                 
             case .result(let data):
                 guard let data = data else {
                     return
                 }
                 SVProgressHUD.dismiss()
+                self.appStateStore.dispatchOnMain(action: ClearGetForecastByCoordinateAction())
                 
                 self.viewModel.currentForecast = data
                 self.viewModel.currentForecastItem = data.list?.first
@@ -371,6 +397,7 @@ final class HomeVC: BaseVC {
             switch state {
             case .fail(_):
                 SVProgressHUD.dismiss()
+                self.appStateStore.dispatchOnMain(action: ClearGetForecastAction())
                 self.resetSearchTableView()
                 
             case .result(let data):
@@ -378,7 +405,7 @@ final class HomeVC: BaseVC {
                     return
                 }
                 SVProgressHUD.dismiss()
-                
+                self.appStateStore.dispatchOnMain(action: ClearGetForecastAction())
                 self.viewModel.responsedForecast = data
                 
                 if self.viewModel.allowRefreshData {
