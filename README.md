@@ -8,7 +8,7 @@
 * *Source Control*:  GIT with BitBucket
 * *Flow chart*: https://app.diagrams.net/#LiOS_Architect.drawio
 
-#### 1. PROBLEM SOLVED
+### 1. PROBLEM SOLVED
 - ✓ The application is a simple iOS application which is written by Swift.
 - ✓ The application is able to retrieve the weather information from OpenWeatherMaps API.
 - ✓ The application is able to allow user to input the searching term.
@@ -67,7 +67,7 @@
     * Only use RxSwift and RxCocoa from the App UI, Redux and PromiseKit will be replace from the App Core.
 
 
-#### 3. 3RD PARTY LIBRARY
+### 3. 3RD PARTY LIBRARY
    1. ReSwift
    2. RxSwift
    3. PromiseKit
