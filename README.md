@@ -6,7 +6,7 @@
 * *Support*:  iOS 13 and later
 * *Dependency management*:  CocoaPods
 * *Source Control*:  GIT with BitBucket
-* *Flow chart*: https://www.draw.io/#G1cFCLFh75-elOz3dOIaogwDxZ2NitIhq2
+* *Flow chart*: https://app.diagrams.net/#LiOS_Architect.drawio
 
 ### 1. PROJECT ARCHITECTURE
 1. Organization:
