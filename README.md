@@ -66,8 +66,8 @@
     * Data change from AppState will be handled from ViewModel, ViewModel will emit change to UI via RxSwift and RxCocoa
     * Only use RxSwift and RxCocoa from the App UI, Redux and PromiseKit will be replace from the App Core.
 
-#### 3. 3RD PARTY LIBRARY
 
+#### 3. 3RD PARTY LIBRARY
    1. ReSwift
    2. RxSwift
    3. PromiseKit
