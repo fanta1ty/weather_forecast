@@ -55,6 +55,6 @@ extension Weather: Decodable {
 // MARK: - Equatable
 extension Weather: Equatable {
     static func ==(lhs: Weather, rhs: Weather) -> Bool {
-        return lhs.id == rhs.id
+        return lhs.id == rhs.id && lhs.main == rhs.main
     }
 }

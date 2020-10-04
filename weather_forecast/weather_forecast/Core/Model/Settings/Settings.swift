@@ -16,6 +16,6 @@ struct Settings: Codable {
 // MARK: - Equatable
 extension Settings: Equatable {
     static func ==(lhs: Settings, rhs: Settings) -> Bool {
-        return lhs.cacheLifeTime == rhs.cacheLifeTime
+        return lhs.cacheLifeTime == rhs.cacheLifeTime && lhs.forecastUnit == rhs.forecastUnit
     }
 }

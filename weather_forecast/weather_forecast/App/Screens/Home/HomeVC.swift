@@ -15,10 +15,6 @@ import SVProgressHUD
 import TSwiftHelper
 
 final class HomeVC: BaseVC {
-    enum TableViewType: Int {
-        case search = 1, recentSearch = 2
-    }
-    
     // MARK: - UI Properties
     private let scrollView = UIScrollView(frame: .zero)
     
@@ -348,7 +344,6 @@ final class HomeVC: BaseVC {
         searchTb.dataSource = self
         searchTb.delegate = self
         searchTb.registerCells()
-        searchTb.tag = TableViewType.search.rawValue
         view.addSubview(searchTb)
         
         searchTb.snp.makeConstraints { make in
@@ -427,38 +422,20 @@ final class HomeVC: BaseVC {
 // MARK: - UITableViewDataSource
 extension HomeVC: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        switch tableView.tag {
-        case TableViewType.search.rawValue:
-            return 1
-            
-        default:
-            return 0
-        }
+        return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch tableView.tag {
-        case TableViewType.search.rawValue:
-            return viewModel.searchs.count
-            
-        default:
-            return 0
-        }
+        return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch tableView.tag {
-        case TableViewType.search.rawValue:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchCell.reuseIdentifier, for: indexPath) as? SearchCell else {
-                return SearchCell(frame: .zero)
-            }
-            
-            cell.loadData(data: viewModel.searchs[indexPath.row])
-            return cell
-            
-        default:
-            return UITableViewCell()
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchCell.reuseIdentifier, for: indexPath) as? SearchCell else {
+            return SearchCell(frame: .zero)
         }
+        
+        cell.loadData(data: viewModel.searchs[indexPath.row])
+        return cell
     }
 }
 
