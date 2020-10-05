@@ -1,7 +1,7 @@
 # weather_forecast
 # iOS PROJECT GUIDE
 
-* *Project name*:  ---
+* *Project name*:  Weather Forecast
 * *Language*:  Swift 5
 * *Support*:  iOS 13 and later
 * *Dependency management*:  CocoaPods
